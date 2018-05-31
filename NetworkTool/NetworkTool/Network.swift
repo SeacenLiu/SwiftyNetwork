@@ -12,14 +12,26 @@ import Alamofire
 class Network {
     static let `default` = Network()
     
-    let baseUrl = "http://116.196.113.170:9080"
+    enum Port: String {
+        static let baseUrl = "http://116.196.113.170:9080/"
+        
+        case sendSecurityCode = "user/sendSecurityCode"
+        case login = "user/login"
+    }
     
     var token: String? {
-        // TODO: - 需要修改成真正的获取
+        // TODO: - 需要按实际修改Token获取方式
         return UserAccount.shared.token
     }
     
     static let ok = 200
+    
+    private init() {}
+}
+
+extension Network {
+    
+    typealias requestCompletion<T: Decodable> = (Result<T>)->()
     
     enum Result<T: Decodable> {
         case success(T?)
@@ -31,19 +43,16 @@ class Network {
         let data: T?
         let info: String
     }
-
-    private init() {}
 }
 
-// MARK: - 用户管理接口
+// MARK: - 用户账号管理接口
 extension Network {
     public func testSendCode<T: Decodable>(
         phone: String,
-        completion: @escaping (Result<T>)->()) {
+        completion: @escaping requestCompletion<T>) {
         
-        let urlString = "/user/sendSecurityCode"
         request(
-            url: urlString,
+            url: Port.sendSecurityCode,
             method: .get,
             parameters: ["phoneNum": phone],
             completion: completion)
@@ -52,11 +61,10 @@ extension Network {
     public func testLogin<T: Decodable>(
         phone: String,
         code: String,
-        completion: @escaping (Result<T>)->()) {
+        completion: @escaping requestCompletion<T>) {
         
-        let urlString = "user/login"
         request(
-            url: urlString,
+            url: Port.login,
             method: .post,
             parameters: [
             "phoneNum": phone,
@@ -67,22 +75,12 @@ extension Network {
 }
 
 private extension Network {
-    /// 返回完整路径字符串
-    func completionString(path: String) -> String {
-        if path.hasPrefix("/") {
-            return baseUrl + path
-        }
-        return baseUrl + "/" + path
-    }
-    
     /// 添加通用参数
     func commonParameters(parameters: Parameters?) -> Parameters {
         var newParameters: [String: Any] = [:]
         if parameters != nil {
             newParameters = parameters!
         }
-        
-        /// 添加通用参数
         if let tk = token {
             newParameters["token"] = tk
         }
@@ -91,13 +89,13 @@ private extension Network {
     
     /// 统一的API请求入口
     func request<T: Decodable>(
-        url: String,
+        url: Port,
         method: HTTPMethod,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
-        completion: @escaping (Result<T>)->()) {
-        let urlStr = completionString(path: url)
+        completion: @escaping requestCompletion<T>) {
+        let urlStr = url.string()
         Alamofire.request(
             urlStr,
             method: method,
@@ -127,6 +125,12 @@ private extension Network {
         }
     }
     
+}
+
+extension Network.Port {
+    func string() -> String {
+        return Network.Port.baseUrl + rawValue
+    }
 }
 
 enum ErrorCode: Int {
