@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Alamofire
+import Alamofire 
 
 class Network {
     static let `default` = Network()
