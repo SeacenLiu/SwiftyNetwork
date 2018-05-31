@@ -21,23 +21,24 @@ class ViewController: UIViewController {
 private extension ViewController {
     
     func testLogin() {
-        Network.default.login(type: UserModel.self, phone: "13380887881", code: "9933", success: { (model) in
-            if let m = model as? UserModel {
-                print(m)
+        Network.default.testLogin(phone: "13380887881", code: "4675") { (result: Network.Result<UserModel>) in
+            switch result {
+            case .success(let value):
+                print(value)
+            case .failure(let err):
+                print(err)
             }
-        }) { (error) in
-            print(error)
         }
     }
     
-    /// 先不要用这个!!!
     func testSendCode() {
-        Network.default.sendSecurityCode(type: String.self, phone: "13380887881", success: { (model) in
-            if let m = model as? String {
-                print(m)
+        Network.default.testSendCode(phone: "13380887881") { (result: Network.Result<String>) in
+            switch result {
+            case .success(let value):
+                print(value)
+            case .failure(let err):
+                print(err)
             }
-        }) { (error) in
-            print(error)
         }
     }
 }
