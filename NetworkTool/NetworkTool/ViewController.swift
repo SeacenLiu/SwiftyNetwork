@@ -10,18 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+//    UserModel(user: NetworkTool.User(userId: "13380887881", userNickname: "13380887881", userAvatar: nil), token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc")
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        testSendCode()
         testLogin()
     }
 
 }
 
 private extension ViewController {
-    
     func testLogin() {
-        Network.default.testLogin(phone: "13380887881", code: "4675") { (result: Network.Result<UserModel>) in
+        Network.default.testLogin(phone: "13380887881", code: "6121") { (result: Network.Result<UserModel>) in
             switch result {
             case .success(let value):
                 print(value ?? "空的但成功了")
@@ -32,7 +33,7 @@ private extension ViewController {
     }
     
     func testSendCode() {
-        Network.default.testSendCode(phone: "13380887881") { (result: Network.Result<String>) in
+        Network.default.testSendCode(phone: "18933399561") { (result: Network.Result<String>) in
             switch result {
             case .success(let value):
                 print(value ?? "空的但成功了")
