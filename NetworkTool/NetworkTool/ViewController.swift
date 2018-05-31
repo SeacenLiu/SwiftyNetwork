@@ -24,7 +24,7 @@ private extension ViewController {
         Network.default.testLogin(phone: "13380887881", code: "4675") { (result: Network.Result<UserModel>) in
             switch result {
             case .success(let value):
-                print(value)
+                print(value ?? "空的但成功了")
             case .failure(let err):
                 print(err)
             }
@@ -35,7 +35,7 @@ private extension ViewController {
         Network.default.testSendCode(phone: "13380887881") { (result: Network.Result<String>) in
             switch result {
             case .success(let value):
-                print(value)
+                print(value ?? "空的但成功了")
             case .failure(let err):
                 print(err)
             }

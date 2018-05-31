@@ -14,18 +14,15 @@ class Network {
     
     let baseUrl = "http://116.196.113.170:9080"
     
-    /// 返回完整路径字符串
-    func completionString(path: String) -> String {
-        if path.hasPrefix("/") {
-            return baseUrl + path
-        }
-        return baseUrl + "/" + path
+    var token: String? {
+        // TODO: - 需要修改成真正的获取
+        return UserAccount.shared.token
     }
     
     static let ok = 200
     
-    enum Result<T> where T: Decodable  {
-        case success(T)
+    enum Result<T: Decodable> {
+        case success(T?)
         case failure(NSError)
     }
     
@@ -70,6 +67,14 @@ extension Network {
 }
 
 private extension Network {
+    /// 返回完整路径字符串
+    func completionString(path: String) -> String {
+        if path.hasPrefix("/") {
+            return baseUrl + path
+        }
+        return baseUrl + "/" + path
+    }
+    
     /// 添加通用参数
     func commonParameters(parameters: Parameters?) -> Parameters {
         var newParameters: [String: Any] = [:]
@@ -78,9 +83,8 @@ private extension Network {
         }
         
         /// 添加通用参数
-        /// 用户token参数
-        if let token = UserAccount.shared.token {
-            newParameters["token"] = token
+        if let tk = token {
+            newParameters["token"] = tk
         }
         return newParameters
     }
@@ -94,24 +98,15 @@ private extension Network {
         headers: HTTPHeaders? = nil,
         completion: @escaping (Result<T>)->()) {
         let urlStr = completionString(path: url)
-        print(urlStr)
         Alamofire.request(
             urlStr,
-            method: .get,
+            method: method,
             parameters: parameters).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) {
                     if body.code == Network.ok {
-                        if let model = body.data {
-                            completion(Result<T>.success(model))
-                        } else {
-                            // ok + data空 的处理
-                            let err = NSError.network(
-                                reason: ErrorMessage.none.rawValue,
-                                code: ErrorCode.none.rawValue)
-                            completion(Result<T>.failure(err))
-                        }
+                        completion(Result<T>.success(body.data))
                     } else {
                         let info = body.info
                         let code = body.code
@@ -137,13 +132,11 @@ private extension Network {
 enum ErrorCode: Int {
     case `default` = -1212
     case json = -1213
-    case none = -1214
 }
 
 enum ErrorMessage: String {
     case `default` = "网络状态不佳，请稍候再试!"
     case json = "服务器数据解析错误!"
-    case none = "服务器没有返回数据"
 }
 
 extension NSError {
