@@ -7,13 +7,21 @@
 //
 
 import Foundation
-import Alamofire 
+import Alamofire
 import SwiftyJSON
 
 class Network {
     static let `default` = Network()
     
     let baseUrl = "http://116.196.113.170:9080"
+    
+    /// 返回完整路径字符串
+    func completionString(path: String) -> String {
+        if path.hasPrefix("/") {
+            return baseUrl + path
+        }
+        return baseUrl + "/" + path
+    }
     
     static let ok = 200
     static let codeKey = "code"
@@ -39,12 +47,32 @@ class Network {
 
 // MARK: - 用户管理接口
 extension Network {
+    public func login<T: Decodable>(
+        type: T.Type,
+        phone: String,
+        code: String,
+        success: @escaping RequestSuccess,
+        failure: @escaping RequestFailure) {
+        let urlString = "user/login"
+        request(
+            type: type,
+            url: urlString,
+            method: .post,
+            parameters: [
+                "phoneNum": phone,
+                "code": code
+            ],
+            success: success,
+            failure: failure)
+    }
+    
+    // 后台返回的 data和这边对接有问题
     public func sendSecurityCode<T: Decodable>(
         type: T.Type,
         phone: String,
         success: @escaping RequestSuccess,
         failure: @escaping RequestFailure) {
-        let urlString = "user/sendSecurityCode"
+        let urlString = "/user/sendSecurityCode"
         request(type: type,
                 url: urlString,
                 method: .get,
@@ -73,15 +101,16 @@ private extension Network {
     /// 统一的API请求入口
     func request<T: Decodable>(
         type: T.Type,
-        url: URLConvertible,
+        url: String,
         method: HTTPMethod,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
         success: @escaping RequestSuccess,
         failure: @escaping RequestFailure) {
+        let urlStr = completionString(path: url)
         Alamofire.request(
-            url,
+            urlStr,
             method: method,
             parameters: commonParameters(parameters: parameters),
             encoding: encoding,
