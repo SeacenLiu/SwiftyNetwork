@@ -14,4 +14,9 @@ extension Network {
         let data: T
         let info: String
     }
+    
+    struct ResponseBodyWithoutData: Decodable {
+        let code: Statuscode
+        let info: String
+    }
 }

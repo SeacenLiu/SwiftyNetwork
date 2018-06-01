@@ -91,8 +91,41 @@ extension Network {
     }
 }
 
-extension Network {
-    /// 统一的API请求入口
+private extension Network {
+    /// Data返回数据为空的API请求入口
+    func request(
+        url: Port,
+        method: HTTPMethod,
+        parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        headers: HTTPHeaders? = nil,
+        completion: @escaping requestCompletion<Void>) {
+        let urlStr = url.string()
+        Alamofire.request(
+            urlStr,
+            method: method,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers).responseData { (response) in
+                switch response.result {
+                case .success(let data):
+                    guard let body = try? JSONDecoder().decode(ResponseBodyWithoutData.self, from: data) else {
+                        completion(Result<Void>.failure(NetworkError.jsonDeserialization))
+                        return
+                    }
+                    switch body.code {
+                    case .success:
+                        completion(Result<Void>.success(()))
+                    default:
+                        completion(Result<Void>.failure(NetworkError.default))
+                    }
+                case .failure(let err):
+                    completion(Result<Void>.failure(err))
+                }
+        }
+    }
+    
+    /// Data有返回数据的API请求入口
     func request<T: Decodable>(
         url: Port,
         method: HTTPMethod,
@@ -100,11 +133,7 @@ extension Network {
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
         completion: @escaping requestCompletion<T>) {
-        
         let urlStr = url.string()
-        print(parameters ?? "")
-        print(headers ?? "")
-        
         Alamofire.request(
             urlStr,
             method: method,
@@ -113,7 +142,6 @@ extension Network {
             headers: headers).responseData { (response) in
             switch response.result {
             case .success(let data):
-                print(String(data: data, encoding: .utf8)!)
                 guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
                     completion(Result<T>.failure(NetworkError.jsonDeserialization))
                     return

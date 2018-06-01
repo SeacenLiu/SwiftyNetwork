@@ -18,20 +18,6 @@ class ViewController: UIViewController {
 //        testSendCode()
 //        testLogin()
         testModify()
-        
-//        Network.default.request(
-//        url: Network.Port.modify,
-//        method: Alamofire.HTTPMethod.put,
-//        parameters: ["nickname": "123"] as Parameters,
-//        encoding: URLEncoding.default,
-//        headers: ["Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc"] as HTTPHeaders) { (result) in
-//            switch result {
-//            case .success(let v):
-//                print(v)
-//            case .failure(let err):
-//                print(err)
-//            }
-//        }
     }
 
 }
@@ -42,7 +28,7 @@ private extension ViewController {
         Network.default.modify(
         type: User.self,
         nickname: "Seacen",
-        avatar: "123") { (result) in
+        avatar: "") { (result) in
             switch result {
             case .success(let v):
                 print(v)
