@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1443065820C0D6EA00A922AD /* Network-Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065720C0D6EA00A922AD /* Network-Port.swift */; };
+		1443065B20C110F500A922AD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065A20C110F500A922AD /* NetworkError.swift */; };
+		1443065D20C1124E00A922AD /* Network-ResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065C20C1124E00A922AD /* Network-ResponseBody.swift */; };
+		1443065F20C112DB00A922AD /* Network-StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065E20C112DB00A922AD /* Network-StatusCode.swift */; };
+		1443066720C161B500A922AD /* NetworkToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443066620C161B500A922AD /* NetworkToolTests.swift */; };
 		14D6251620BFE608000414F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6251520BFE608000414F0 /* AppDelegate.swift */; };
 		14D6251820BFE608000414F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6251720BFE608000414F0 /* ViewController.swift */; };
 		14D6251B20BFE608000414F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6251920BFE608000414F0 /* Main.storyboard */; };
@@ -18,8 +22,24 @@
 		77E0A44FDBC194D7A128A9B9 /* Pods_NetworkTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FB97C9A1E809FC41C53718F /* Pods_NetworkTool.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1443066920C161B500A922AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14D6250A20BFE608000414F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 14D6251120BFE608000414F0;
+			remoteInfo = NetworkTool;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1443065720C0D6EA00A922AD /* Network-Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-Port.swift"; sourceTree = "<group>"; };
+		1443065A20C110F500A922AD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		1443065C20C1124E00A922AD /* Network-ResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-ResponseBody.swift"; sourceTree = "<group>"; };
+		1443065E20C112DB00A922AD /* Network-StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-StatusCode.swift"; sourceTree = "<group>"; };
+		1443066420C161B400A922AD /* NetworkToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1443066620C161B500A922AD /* NetworkToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkToolTests.swift; sourceTree = "<group>"; };
+		1443066820C161B500A922AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D6251220BFE608000414F0 /* NetworkTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6251520BFE608000414F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14D6251720BFE608000414F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +55,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1443066120C161B400A922AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14D6250F20BFE608000414F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,16 +76,29 @@
 		1443065920C0D6F700A922AD /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				1443065720C0D6EA00A922AD /* Network-Port.swift */,
 				14D6252720BFE621000414F0 /* Network.swift */,
+				1443065720C0D6EA00A922AD /* Network-Port.swift */,
+				1443065E20C112DB00A922AD /* Network-StatusCode.swift */,
+				1443065C20C1124E00A922AD /* Network-ResponseBody.swift */,
+				1443065A20C110F500A922AD /* NetworkError.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		1443066520C161B500A922AD /* NetworkToolTests */ = {
+			isa = PBXGroup;
+			children = (
+				1443066620C161B500A922AD /* NetworkToolTests.swift */,
+				1443066820C161B500A922AD /* Info.plist */,
+			);
+			path = NetworkToolTests;
 			sourceTree = "<group>";
 		};
 		14D6250920BFE608000414F0 = {
 			isa = PBXGroup;
 			children = (
 				14D6251420BFE608000414F0 /* NetworkTool */,
+				1443066520C161B500A922AD /* NetworkToolTests */,
 				14D6251320BFE608000414F0 /* Products */,
 				A6DE8E33CAB00FB50DFF26C7 /* Pods */,
 				6BC643CFDB2E651DFBBB66BD /* Frameworks */,
@@ -69,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				14D6251220BFE608000414F0 /* NetworkTool.app */,
+				1443066420C161B400A922AD /* NetworkToolTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +149,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1443066320C161B400A922AD /* NetworkToolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1443066B20C161B500A922AD /* Build configuration list for PBXNativeTarget "NetworkToolTests" */;
+			buildPhases = (
+				1443066020C161B400A922AD /* Sources */,
+				1443066120C161B400A922AD /* Frameworks */,
+				1443066220C161B400A922AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1443066A20C161B500A922AD /* PBXTargetDependency */,
+			);
+			name = NetworkToolTests;
+			productName = NetworkToolTests;
+			productReference = 1443066420C161B400A922AD /* NetworkToolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		14D6251120BFE608000414F0 /* NetworkTool */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14D6252420BFE60A000414F0 /* Build configuration list for PBXNativeTarget "NetworkTool" */;
@@ -137,6 +196,10 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "成";
 				TargetAttributes = {
+					1443066320C161B400A922AD = {
+						CreatedOnToolsVersion = 9.3.1;
+						TestTargetID = 14D6251120BFE608000414F0;
+					};
 					14D6251120BFE608000414F0 = {
 						CreatedOnToolsVersion = 9.3.1;
 					};
@@ -156,11 +219,19 @@
 			projectRoot = "";
 			targets = (
 				14D6251120BFE608000414F0 /* NetworkTool */,
+				1443066320C161B400A922AD /* NetworkToolTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1443066220C161B400A922AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14D6251020BFE608000414F0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,19 +286,38 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1443066020C161B400A922AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1443066720C161B500A922AD /* NetworkToolTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		14D6250E20BFE608000414F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1443065820C0D6EA00A922AD /* Network-Port.swift in Sources */,
+				1443065F20C112DB00A922AD /* Network-StatusCode.swift in Sources */,
 				14D6251820BFE608000414F0 /* ViewController.swift in Sources */,
 				14D6252820BFE621000414F0 /* Network.swift in Sources */,
+				1443065B20C110F500A922AD /* NetworkError.swift in Sources */,
+				1443065D20C1124E00A922AD /* Network-ResponseBody.swift in Sources */,
 				14D6252A20BFF236000414F0 /* UserAccount.swift in Sources */,
 				14D6251620BFE608000414F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1443066A20C161B500A922AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 14D6251120BFE608000414F0 /* NetworkTool */;
+			targetProxy = 1443066920C161B500A922AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		14D6251920BFE608000414F0 /* Main.storyboard */ = {
@@ -249,6 +339,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1443066C20C161B500A922AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NetworkToolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cppteam.ios.NetworkToolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetworkTool.app/NetworkTool";
+			};
+			name = Debug;
+		};
+		1443066D20C161B500A922AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NetworkToolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cppteam.ios.NetworkToolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetworkTool.app/NetworkTool";
+			};
+			name = Release;
+		};
 		14D6252220BFE60A000414F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -402,6 +530,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1443066B20C161B500A922AD /* Build configuration list for PBXNativeTarget "NetworkToolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1443066C20C161B500A922AD /* Debug */,
+				1443066D20C161B500A922AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		14D6250D20BFE608000414F0 /* Build configuration list for PBXProject "NetworkTool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

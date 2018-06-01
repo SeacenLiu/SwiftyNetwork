@@ -20,17 +20,8 @@ class Network {
     static let ok = 200
     
     private init() {}
-}
-
-extension Network {
     
     typealias requestCompletion<T: Decodable> = (Result<T>)->()
-    
-    struct ResponseBody<T: Decodable>: Decodable {
-        let code: Int
-        let data: T
-        let info: String
-    }
 }
 
 // MARK: - 用户账号管理接口
@@ -98,48 +89,17 @@ private extension Network {
                     if body.code == Network.ok {
                         completion(Result<T>.success(body.data))
                     } else {
-                        let info = body.info
-                        let code = body.code
-                        let err = NSError.network(
-                            reason: info,
-                            code: code)
-                        completion(Result<T>.failure(err))
+                        completion(Result<T>.failure(NetworkError.default))
                     }
                 } else {
-                    let err = NSError.network(
-                        reason: ErrorMessage.json.rawValue,
-                        code: ErrorCode.json.rawValue)
-                    completion(Result<T>.failure(err))
+                    completion(Result<T>.failure(NetworkError.jsonDeserialization))
                 }
             case .failure(let err):
-                completion(Result<T>.failure(err as NSError))
+                completion(Result<T>.failure(err))
             }
         }
     }
     
-}
-
-enum ErrorCode: Int {
-    case `default` = -1212
-    case json = -1213
-}
-
-enum ErrorMessage: String {
-    case `default` = "网络状态不佳，请稍候再试!"
-    case json = "服务器数据解析错误!"
-}
-
-extension NSError {
-    class func network(reason: String, code: Int) -> NSError {
-        let userInfo = [
-            NSLocalizedDescriptionKey: reason,
-            NSLocalizedFailureReasonErrorKey: reason
-        ]
-        return NSError(
-            domain: "com.seacen.networkerror",
-            code: code,
-            userInfo: userInfo)
-    }
 }
 
 /**

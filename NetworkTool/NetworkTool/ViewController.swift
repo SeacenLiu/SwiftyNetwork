@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        testSendCode()
-        testLogin()
+        testSendCode()
+//        testLogin()
     }
 
 }
@@ -40,7 +40,7 @@ private extension ViewController {
     func testSendCode() {
         Network.default.testSendCode(
         type: String.self,
-        phone: "18933399561") {
+        phone: "13380887881") {
             (result) in
             switch result {
             case .success(let value):
