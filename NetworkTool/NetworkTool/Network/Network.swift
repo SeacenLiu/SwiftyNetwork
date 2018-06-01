@@ -26,14 +26,9 @@ extension Network {
     
     typealias requestCompletion<T: Decodable> = (Result<T>)->()
     
-    enum Result<T: Decodable> {
-        case success(T?)
-        case failure(NSError)
-    }
-    
     struct ResponseBody<T: Decodable>: Decodable {
         let code: Int
-        let data: T?
+        let data: T
         let info: String
     }
 }
@@ -41,6 +36,7 @@ extension Network {
 // MARK: - 用户账号管理接口
 extension Network {
     public func testSendCode<T: Decodable>(
+        type: T.Type,
         phone: String,
         completion: @escaping requestCompletion<T>) {
         
@@ -52,6 +48,7 @@ extension Network {
     }
     
     public func testLogin<T: Decodable>(
+        type: T.Type,
         phone: String,
         code: String,
         completion: @escaping requestCompletion<T>) {
@@ -92,7 +89,9 @@ private extension Network {
         Alamofire.request(
             urlStr,
             method: method,
-            parameters: parameters).responseData { (response) in
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers).responseData { (response) in
             switch response.result {
             case .success(let data):
                 if let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) {
@@ -143,8 +142,14 @@ extension NSError {
     }
 }
 
-
-
+/**
+ * Network
+ * Network-Public
+ * Network-Port
+ * Network-StatusCode
+ * Network-ResponseBody
+ * NetworkError
+*/
 
 
 
