@@ -18,6 +18,7 @@ import Alamofire
  * NetworkError
  */
 
+/// ToDoList : 处理这个情况的方法
 /** 后台的Data为空情况JSON
  {
  "code": 400,
@@ -38,7 +39,6 @@ class Network {
     
     typealias requestCompletion<T> = (Result<T>)->()
     
-    typealias noneDataType = [String: String]
 }
 
 // MARK: - 用户账号管理接口
