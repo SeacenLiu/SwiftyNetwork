@@ -12,7 +12,7 @@ import XCTest
 class NetworkToolTests: XCTestCase {
     
     func testSendCode() {
-        Network.default.testSendCode(
+        Network.default.sendCode(
             type: String.self,
             phone: "13380887881") {
                 (result) in
@@ -26,7 +26,7 @@ class NetworkToolTests: XCTestCase {
     }
     
     func testLogin() {
-        Network.default.testLogin(
+        Network.default.login(
             type: UserModel.self,
             phone: "13380887881",
             code: "6121") {

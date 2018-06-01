@@ -14,15 +14,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testSendCode()
+//        testSendCode()
 //        testLogin()
+        testModify()
     }
 
 }
 
 private extension ViewController {
+    
+    func testModify() {
+        Network.default.modify(
+        type: Network.noneDataType.self,
+        nickname: "Seacen",
+        avatar: "") { (result) in
+            switch result {
+            case .success(_):
+                print("成功修改")
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     func testLogin() {
-        Network.default.testLogin(
+        Network.default.login(
         type: UserModel.self,
         phone: "13380887881",
         code: "6121") {
@@ -38,7 +54,7 @@ private extension ViewController {
     }
 
     func testSendCode() {
-        Network.default.testSendCode(
+        Network.default.sendCode(
         type: String.self,
         phone: "13380887881") {
             (result) in

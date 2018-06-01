@@ -10,10 +10,11 @@ import Foundation
 
 extension Network {
     enum Port: String {
-        static let baseUrl = "http://116.196.113.170:9080/"
+        static let baseUrl = "http://116.196.113.170:9080"
         
-        case sendSecurityCode = "user/sendSecurityCode"
-        case login = "user/login"
+        case sendSecurityCode = "/user/sendSecurityCode"
+        case login = "/user/login"
+        case modify = "/user/modify"
     }
 }
 

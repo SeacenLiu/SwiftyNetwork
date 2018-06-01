@@ -18,22 +18,32 @@ import Alamofire
  * NetworkError
  */
 
+/** 后台的Data为空情况JSON
+ {
+ "code": 400,
+ "info": "验证失败",
+ "data": null
+ }
+ */
+
 class Network {
     static let `default` = Network()
     
     var token: String? {
         // TODO: - 需要按实际修改Token获取方式
-        return UserAccount.shared.token
+        return "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc" //UserAccount.shared.token
     }
     
     private init() {}
     
-    typealias requestCompletion<T: Decodable> = (Result<T>)->()
+    typealias requestCompletion<T> = (Result<T>)->()
+    
+    typealias noneDataType = [String: String]
 }
 
 // MARK: - 用户账号管理接口
 extension Network {
-    public func testSendCode<T: Decodable>(
+    public func sendCode<T: Decodable>(
         type: T.Type,
         phone: String,
         completion: @escaping requestCompletion<T>) {
@@ -45,7 +55,7 @@ extension Network {
             completion: completion)
     }
     
-    public func testLogin<T: Decodable>(
+    public func login<T: Decodable>(
         type: T.Type,
         phone: String,
         code: String,
@@ -57,6 +67,22 @@ extension Network {
             parameters: [
             "phoneNum": phone,
             "code": code
+            ],
+            completion: completion)
+    }
+    
+    public func modify<T: Decodable>(
+        type: T.Type,
+        nickname: String,
+        avatar: String,
+        completion: @escaping requestCompletion<T>) {
+        
+        request(
+            url: .modify,
+            method: .put,
+            parameters: [
+                "nickname": nickname,
+                "avatar": avatar
             ],
             completion: completion)
     }
