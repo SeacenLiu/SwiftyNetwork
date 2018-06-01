@@ -7,17 +7,10 @@
 //
 
 import Foundation
-import Alamofire 
+import Alamofire
 
 class Network {
     static let `default` = Network()
-    
-    enum Port: String {
-        static let baseUrl = "http://116.196.113.170:9080/"
-        
-        case sendSecurityCode = "user/sendSecurityCode"
-        case login = "user/login"
-    }
     
     var token: String? {
         // TODO: - 需要按实际修改Token获取方式
@@ -125,12 +118,6 @@ private extension Network {
         }
     }
     
-}
-
-extension Network.Port {
-    func string() -> String {
-        return Network.Port.baseUrl + rawValue
-    }
 }
 
 enum ErrorCode: Int {
