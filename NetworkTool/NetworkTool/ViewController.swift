@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
@@ -17,6 +18,20 @@ class ViewController: UIViewController {
 //        testSendCode()
 //        testLogin()
         testModify()
+        
+//        Network.default.request(
+//        url: Network.Port.modify,
+//        method: Alamofire.HTTPMethod.put,
+//        parameters: ["nickname": "123"] as Parameters,
+//        encoding: URLEncoding.default,
+//        headers: ["Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc"] as HTTPHeaders) { (result) in
+//            switch result {
+//            case .success(let v):
+//                print(v)
+//            case .failure(let err):
+//                print(err)
+//            }
+//        }
     }
 
 }
@@ -25,12 +40,12 @@ private extension ViewController {
     
     func testModify() {
         Network.default.modify(
-        type: Network.noneDataType.self,
+        type: User.self,
         nickname: "Seacen",
-        avatar: "") { (result) in
+        avatar: "123") { (result) in
             switch result {
-            case .success(_):
-                print("成功修改")
+            case .success(let v):
+                print(v)
             case .failure(let err):
                 print(err)
             }

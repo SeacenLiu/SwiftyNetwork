@@ -31,7 +31,7 @@ class Network {
     
     var token: String? {
         // TODO: - 需要按实际修改Token获取方式
-        return "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc" //UserAccount.shared.token
+        return UserAccount.shared.token
     }
     
     private init() {}
@@ -49,7 +49,7 @@ extension Network {
         completion: @escaping requestCompletion<T>) {
         
         request(
-            url: Port.sendSecurityCode,
+            url: .sendSecurityCode,
             method: .get,
             parameters: ["phoneNum": phone],
             completion: completion)
@@ -62,7 +62,7 @@ extension Network {
         completion: @escaping requestCompletion<T>) {
         
         request(
-            url: Port.login,
+            url: .login,
             method: .post,
             parameters: [
             "phoneNum": phone,
@@ -79,28 +79,19 @@ extension Network {
         
         request(
             url: .modify,
-            method: .put,
+            method: .post,
             parameters: [
                 "nickname": nickname,
                 "avatar": avatar
+            ],
+            headers: [
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc"
             ],
             completion: completion)
     }
 }
 
-private extension Network {
-    /// 添加通用参数
-    func commonParameters(parameters: Parameters?) -> Parameters {
-        var newParameters: [String: Any] = [:]
-        if parameters != nil {
-            newParameters = parameters!
-        }
-        if let tk = token {
-            newParameters["token"] = tk
-        }
-        return newParameters
-    }
-    
+extension Network {
     /// 统一的API请求入口
     func request<T: Decodable>(
         url: Port,
@@ -109,7 +100,11 @@ private extension Network {
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
         completion: @escaping requestCompletion<T>) {
+        
         let urlStr = url.string()
+        print(parameters ?? "")
+        print(headers ?? "")
+        
         Alamofire.request(
             urlStr,
             method: method,
@@ -118,6 +113,7 @@ private extension Network {
             headers: headers).responseData { (response) in
             switch response.result {
             case .success(let data):
+                print(String(data: data, encoding: .utf8)!)
                 guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
                     completion(Result<T>.failure(NetworkError.jsonDeserialization))
                     return
