@@ -9,6 +9,15 @@
 import Foundation
 import Alamofire
 
+/**
+ * Network
+ * Network-Public
+ * Network-Port
+ * Network-StatusCode
+ * Network-ResponseBody
+ * NetworkError
+ */
+
 class Network {
     static let `default` = Network()
     
@@ -16,8 +25,6 @@ class Network {
         // TODO: - 需要按实际修改Token获取方式
         return UserAccount.shared.token
     }
-    
-    static let ok = 200
     
     private init() {}
     
@@ -85,14 +92,15 @@ private extension Network {
             headers: headers).responseData { (response) in
             switch response.result {
             case .success(let data):
-                if let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) {
-                    if body.code == Network.ok {
-                        completion(Result<T>.success(body.data))
-                    } else {
-                        completion(Result<T>.failure(NetworkError.default))
-                    }
-                } else {
+                guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
                     completion(Result<T>.failure(NetworkError.jsonDeserialization))
+                    return
+                }
+                switch body.code {
+                case .success:
+                    completion(Result<T>.success(body.data))
+                default:
+                    completion(Result<T>.failure(NetworkError.default))
                 }
             case .failure(let err):
                 completion(Result<T>.failure(err))
@@ -101,15 +109,6 @@ private extension Network {
     }
     
 }
-
-/**
- * Network
- * Network-Public
- * Network-Port
- * Network-StatusCode
- * Network-ResponseBody
- * NetworkError
-*/
 
 
 

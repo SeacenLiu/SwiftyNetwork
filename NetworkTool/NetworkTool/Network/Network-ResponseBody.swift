@@ -10,7 +10,7 @@ import Foundation
 
 extension Network {
     struct ResponseBody<T: Decodable>: Decodable {
-        let code: Int //Statuscode
+        let code: Statuscode
         let data: T
         let info: String
     }

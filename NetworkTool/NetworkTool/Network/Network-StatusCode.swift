@@ -13,5 +13,16 @@ extension Network {
         case success = 200
         case authenticationError = 401
         case failed = 500
+        
+        init(rawValue: Int) {
+            switch rawValue {
+            case 200...299:
+                self = .success
+            case 400...499:
+                self = .authenticationError
+            default:
+                self = .failed
+            }
+        }
     }
 }
