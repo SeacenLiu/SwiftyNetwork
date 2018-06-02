@@ -79,7 +79,7 @@ extension Network {
         
         request(
             url: .modify,
-            method: .post,
+            method: .put,
             parameters: [
                 "nickname": nickname,
                 "avatar": avatar
