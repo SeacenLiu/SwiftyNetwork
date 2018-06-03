@@ -12,9 +12,3 @@ enum NetworkError: Error {
     case `default`
     case jsonDeserialization
 }
-
-extension NetworkError {
-    func handelError() {
-        
-    }
-}

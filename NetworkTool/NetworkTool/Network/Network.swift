@@ -32,7 +32,7 @@ class Network {
     
     var token: String? {
         // TODO: - 需要按实际修改Token获取方式
-        return UserAccount.shared.token
+        return "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc" //UserAccount.shared.token
     }
     
     private init() {}
@@ -84,53 +84,20 @@ extension Network {
                 "nickname": nickname,
                 "avatar": avatar
             ],
-            headers: [
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzMzgwODg3ODgxIn0.bpGTrpFmGgbtGItAz-N0aFdrKAOi0s7YETVaLwBUWnc"
-            ],
             completion: completion)
     }
 }
 
 private extension Network {
-    /// Data返回数据为空的API请求入口
-    func request(
-        url: Port,
-        method: HTTPMethod,
-        parameters: Parameters? = nil,
-        encoding: ParameterEncoding = URLEncoding.default,
-        headers: HTTPHeaders? = nil,
-        completion: @escaping requestCompletion<Void>) {
-        
-        let urlStr = url.string()
-        Alamofire.request(
-            urlStr,
-            method: method,
-            parameters: parameters,
-            encoding: encoding,
-            headers: headers).responseData { (response) in
-                do {
-                    switch response.result {
-                    case .success(let data):
-                        guard let body = try? JSONDecoder().decode(ResponseBodyWithoutData.self, from: data) else {
-                            throw NetworkError.jsonDeserialization
-                        }
-                        switch body.code {
-                        case .success:
-                            completion(Result<Void>.success(()))
-                        default:
-                            throw NetworkError.default
-                        }
-                    case .failure(let err):
-                        throw NetworkError.default
-                    }
-                } catch(let err) {
-                    completion(Result<Void>.failure(err))
-                }
+    func commonHeaders(headers: HTTPHeaders?) -> HTTPHeaders {
+        var newHeaders: HTTPHeaders = [:]
+        if headers != nil {
+            newHeaders = headers!
         }
-        
-        func handelErr(err: NetworkError) {
-            
+        if let tk = token {
+            newHeaders["Authorization"] = tk
         }
+        return newHeaders
     }
     
     /// Data有返回数据的API请求入口
@@ -147,7 +114,7 @@ private extension Network {
             method: method,
             parameters: parameters,
             encoding: encoding,
-            headers: headers).responseData { (response) in
+            headers: commonHeaders(headers: headers)).responseData { (response) in
                 do {
                     switch response.result {
                     case .success(let data):
