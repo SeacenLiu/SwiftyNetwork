@@ -149,12 +149,14 @@ private extension Network {
         headers: HTTPHeaders? = nil,
         completion: @escaping requestCompletion<T>) {
         let urlStr = url.string()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         Alamofire.request(
             urlStr,
             method: method,
             parameters: parameters,
             encoding: encoding,
             headers: commonHeaders(headers: headers)).responseData { (response) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 do {
                     switch response.result {
                     case .success(let data):
