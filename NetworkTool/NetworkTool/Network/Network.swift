@@ -171,8 +171,10 @@ private extension Network {
                         print("网络请求失败的")
                         throw NetworkError.default
                     }
-                } catch(let err) {
-                    completion(Result<T>.failure(err))
+                } catch(let error) {
+                    if let err = error as? NetworkError {
+                        completion(Result<T>.failure(err))
+                    }
                 }
         }
     }

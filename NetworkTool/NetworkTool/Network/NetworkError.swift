@@ -8,6 +8,13 @@
 
 import Foundation
 
+extension Network {
+    enum Result<T> {
+        case success(T)
+        case failure(NetworkError)
+    }
+}
+
 enum NetworkError: Error {
     case `default`
     case jsonDeserialization
