@@ -11,4 +11,5 @@ import Foundation
 enum NetworkError: Error {
     case `default`
     case jsonDeserialization
+    case authorizationError
 }

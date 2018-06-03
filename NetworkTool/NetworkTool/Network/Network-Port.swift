@@ -15,6 +15,8 @@ extension Network {
         case sendSecurityCode = "/user/sendSecurityCode"
         case login = "/user/login"
         case modify = "/user/modify"
+        
+        case message = "/message"
     }
 }
 

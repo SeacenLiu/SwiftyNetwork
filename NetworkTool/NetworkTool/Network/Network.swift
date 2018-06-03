@@ -47,7 +47,6 @@ extension Network {
         type: T.Type,
         phone: String,
         completion: @escaping requestCompletion<T>) {
-        
         request(
             url: .sendSecurityCode,
             method: .get,
@@ -60,7 +59,6 @@ extension Network {
         phone: String,
         code: String,
         completion: @escaping requestCompletion<T>) {
-        
         request(
             url: .login,
             method: .post,
@@ -76,7 +74,6 @@ extension Network {
         nickname: String,
         avatar: String,
         completion: @escaping requestCompletion<T>) {
-        
         request(
             url: .modify,
             method: .put,
@@ -84,6 +81,49 @@ extension Network {
                 "nickname": nickname,
                 "avatar": avatar
             ],
+            completion: completion)
+    }
+}
+
+// MARK: - 留言相关接口
+extension Network {
+    public func loadMessage<T: Decodable>(
+        type: T.Type,
+        completion: @escaping requestCompletion<T>) {
+        request(url: .message, method: .get, completion: completion)
+    }
+    
+    public func saveMessage<T: Decodable>(
+        type: T.Type,
+        messageContent: String,
+        modelId: Int,
+        messageLongitude: Double,
+        messageLatitude: Double,
+        messageTime: TimeInterval,
+        completion: @escaping requestCompletion<T>) {
+        let parameters = [
+            "messageContent": messageContent,
+            "modelId": modelId,
+            "messageLongitude": messageLongitude,
+            "messageLatitude": messageLatitude,
+            "messageTime": messageTime
+            ] as Parameters
+        request(
+            url: .message,
+            method: .post,
+            parameters: parameters,
+            completion: completion)
+    }
+    
+    public func getMessage<T: Decodable>(
+        type: T.Type,
+        messageId: String,
+        completion: @escaping requestCompletion<T>) {
+        let parameters = ["messageId": messageId]
+        request(
+            url: .message,
+            method: .get,
+            parameters: parameters,
             completion: completion)
     }
 }
