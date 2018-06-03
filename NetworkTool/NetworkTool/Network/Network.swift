@@ -100,6 +100,7 @@ private extension Network {
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
         completion: @escaping requestCompletion<Void>) {
+        
         let urlStr = url.string()
         Alamofire.request(
             urlStr,
@@ -107,21 +108,28 @@ private extension Network {
             parameters: parameters,
             encoding: encoding,
             headers: headers).responseData { (response) in
-                switch response.result {
-                case .success(let data):
-                    guard let body = try? JSONDecoder().decode(ResponseBodyWithoutData.self, from: data) else {
-                        completion(Result<Void>.failure(NetworkError.jsonDeserialization))
-                        return
+                do {
+                    switch response.result {
+                    case .success(let data):
+                        guard let body = try? JSONDecoder().decode(ResponseBodyWithoutData.self, from: data) else {
+                            throw NetworkError.jsonDeserialization
+                        }
+                        switch body.code {
+                        case .success:
+                            completion(Result<Void>.success(()))
+                        default:
+                            throw NetworkError.default
+                        }
+                    case .failure(let err):
+                        throw NetworkError.default
                     }
-                    switch body.code {
-                    case .success:
-                        completion(Result<Void>.success(()))
-                    default:
-                        completion(Result<Void>.failure(NetworkError.default))
-                    }
-                case .failure(let err):
+                } catch(let err) {
                     completion(Result<Void>.failure(err))
                 }
+        }
+        
+        func handelErr(err: NetworkError) {
+            
         }
     }
     
@@ -140,24 +148,27 @@ private extension Network {
             parameters: parameters,
             encoding: encoding,
             headers: headers).responseData { (response) in
-            switch response.result {
-            case .success(let data):
-                guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
-                    completion(Result<T>.failure(NetworkError.jsonDeserialization))
-                    return
+                do {
+                    switch response.result {
+                    case .success(let data):
+                        guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
+                            throw NetworkError.jsonDeserialization
+                        }
+                        switch body.code {
+                        case .success:
+                            completion(Result<T>.success(body.data))
+                        default:
+                            throw NetworkError.default
+                        }
+                    case .failure(_):
+                        print("网络请求失败的")
+                        throw NetworkError.default
+                    }
+                } catch(let err) {
+                    completion(Result<T>.failure(err))
                 }
-                switch body.code {
-                case .success:
-                    completion(Result<T>.success(body.data))
-                default:
-                    completion(Result<T>.failure(NetworkError.default))
-                }
-            case .failure(let err):
-                completion(Result<T>.failure(err))
-            }
         }
     }
-    
 }
 
 
