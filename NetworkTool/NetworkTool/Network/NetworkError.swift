@@ -18,5 +18,6 @@ extension Network {
 enum NetworkError: Error {
     case `default`
     case jsonDeserialization
+    case frequentlyError
     case authorizationError
 }

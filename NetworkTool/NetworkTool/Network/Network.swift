@@ -129,6 +129,7 @@ extension Network {
 }
 
 private extension Network {
+    /// 通用请求头
     func commonHeaders(headers: HTTPHeaders?) -> HTTPHeaders {
         var newHeaders: HTTPHeaders = [:]
         if headers != nil {
@@ -148,8 +149,8 @@ private extension Network {
         encoding: ParameterEncoding = URLEncoding.default,
         headers: HTTPHeaders? = nil,
         completion: @escaping requestCompletion<T>) {
-        let urlStr = url.string()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        let urlStr = url.string()
         Alamofire.request(
             urlStr,
             method: method,
@@ -157,28 +158,40 @@ private extension Network {
             encoding: encoding,
             headers: commonHeaders(headers: headers)).responseData { (response) in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                do {
-                    switch response.result {
-                    case .success(let data):
-                        guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
-                            throw NetworkError.jsonDeserialization
-                        }
-                        switch body.code {
-                        case .success:
-                            completion(Result<T>.success(body.data))
-                        default:
-                            throw NetworkError.default
-                        }
-                    case .failure(_):
-                        print("网络请求失败的")
-                        throw NetworkError.default
-                    }
-                } catch(let error) {
-                    if let err = error as? NetworkError {
-                        completion(Result<T>.failure(err))
-                    }
+                switch response.result {
+                case .success(let data):
+                    self.successHandle(data: data, completion: completion)
+                case .failure(_):
+                    self.failureHandle(completion: completion)
                 }
         }
+    }
+    
+    /// 网络请求成功处理
+    func successHandle<T: Decodable>(data: Data, completion: requestCompletion<T>) {
+        do {
+            guard let body = try? JSONDecoder().decode(ResponseBody<T>.self, from: data) else {
+                throw NetworkError.jsonDeserialization
+            }
+            switch body.code {
+            case .success:
+                completion(Result<T>.success(body.data))
+            case .frequently:
+                throw NetworkError.frequentlyError
+            default:
+                throw NetworkError.default
+            }
+        } catch(let error) {
+            if let err = error as? NetworkError {
+                completion(Result<T>.failure(err))
+            }
+        }
+    }
+    
+    /// 网络请求失败处理
+    func failureHandle<T>(completion: requestCompletion<T>) {
+        print("网络请求失败的")
+        completion(Result<T>.failure(NetworkError.default))
     }
 }
 
