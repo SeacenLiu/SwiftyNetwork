@@ -8,17 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		1443065820C0D6EA00A922AD /* Network-Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065720C0D6EA00A922AD /* Network-Port.swift */; };
-		1443065B20C110F500A922AD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065A20C110F500A922AD /* NetworkError.swift */; };
+		1443065B20C110F500A922AD /* Network-Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065A20C110F500A922AD /* Network-Error.swift */; };
 		1443065D20C1124E00A922AD /* Network-ResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065C20C1124E00A922AD /* Network-ResponseBody.swift */; };
 		1443065F20C112DB00A922AD /* Network-StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443065E20C112DB00A922AD /* Network-StatusCode.swift */; };
 		1443066720C161B500A922AD /* NetworkToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1443066620C161B500A922AD /* NetworkToolTests.swift */; };
+		1484AE8A2186D8D400F493CE /* Network-external.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1484AE892186D8D400F493CE /* Network-external.swift */; };
+		1484AE8C2186DBF300F493CE /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1484AE8B2186DBF300F493CE /* TestModel.swift */; };
 		14D6251620BFE608000414F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6251520BFE608000414F0 /* AppDelegate.swift */; };
 		14D6251820BFE608000414F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6251720BFE608000414F0 /* ViewController.swift */; };
 		14D6251B20BFE608000414F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6251920BFE608000414F0 /* Main.storyboard */; };
 		14D6251D20BFE60A000414F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D6251C20BFE60A000414F0 /* Assets.xcassets */; };
 		14D6252020BFE60A000414F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D6251E20BFE60A000414F0 /* LaunchScreen.storyboard */; };
-		14D6252820BFE621000414F0 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6252720BFE621000414F0 /* Network.swift */; };
-		14D6252A20BFF236000414F0 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6252920BFF236000414F0 /* UserAccount.swift */; };
+		14D6252820BFE621000414F0 /* Network-internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6252720BFE621000414F0 /* Network-internal.swift */; };
 		77E0A44FDBC194D7A128A9B9 /* Pods_NetworkTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FB97C9A1E809FC41C53718F /* Pods_NetworkTool.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,12 +35,14 @@
 
 /* Begin PBXFileReference section */
 		1443065720C0D6EA00A922AD /* Network-Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-Port.swift"; sourceTree = "<group>"; };
-		1443065A20C110F500A922AD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		1443065A20C110F500A922AD /* Network-Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-Error.swift"; sourceTree = "<group>"; };
 		1443065C20C1124E00A922AD /* Network-ResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-ResponseBody.swift"; sourceTree = "<group>"; };
 		1443065E20C112DB00A922AD /* Network-StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-StatusCode.swift"; sourceTree = "<group>"; };
 		1443066420C161B400A922AD /* NetworkToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1443066620C161B500A922AD /* NetworkToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkToolTests.swift; sourceTree = "<group>"; };
 		1443066820C161B500A922AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1484AE892186D8D400F493CE /* Network-external.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-external.swift"; sourceTree = "<group>"; };
+		1484AE8B2186DBF300F493CE /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		14D6251220BFE608000414F0 /* NetworkTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D6251520BFE608000414F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14D6251720BFE608000414F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,8 +50,7 @@
 		14D6251C20BFE60A000414F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14D6251F20BFE60A000414F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14D6252120BFE60A000414F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14D6252720BFE621000414F0 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		14D6252920BFF236000414F0 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		14D6252720BFE621000414F0 /* Network-internal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network-internal.swift"; sourceTree = "<group>"; };
 		9FB97C9A1E809FC41C53718F /* Pods_NetworkTool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkTool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A527D954B3C3257B06FDE2DE /* Pods-NetworkTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkTool/Pods-NetworkTool.release.xcconfig"; sourceTree = "<group>"; };
 		F81625BCED1A9B923437D9C6 /* Pods-NetworkTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetworkTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetworkTool/Pods-NetworkTool.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,11 +78,12 @@
 		1443065920C0D6F700A922AD /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				14D6252720BFE621000414F0 /* Network.swift */,
+				1484AE892186D8D400F493CE /* Network-external.swift */,
 				1443065720C0D6EA00A922AD /* Network-Port.swift */,
-				1443065E20C112DB00A922AD /* Network-StatusCode.swift */,
 				1443065C20C1124E00A922AD /* Network-ResponseBody.swift */,
-				1443065A20C110F500A922AD /* NetworkError.swift */,
+				1443065E20C112DB00A922AD /* Network-StatusCode.swift */,
+				1443065A20C110F500A922AD /* Network-Error.swift */,
+				14D6252720BFE621000414F0 /* Network-internal.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -124,7 +127,7 @@
 				14D6251C20BFE60A000414F0 /* Assets.xcassets */,
 				14D6251E20BFE60A000414F0 /* LaunchScreen.storyboard */,
 				14D6252120BFE60A000414F0 /* Info.plist */,
-				14D6252920BFF236000414F0 /* UserAccount.swift */,
+				1484AE8B2186DBF300F493CE /* TestModel.swift */,
 			);
 			path = NetworkTool;
 			sourceTree = "<group>";
@@ -299,12 +302,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1443065820C0D6EA00A922AD /* Network-Port.swift in Sources */,
+				1484AE8A2186D8D400F493CE /* Network-external.swift in Sources */,
 				1443065F20C112DB00A922AD /* Network-StatusCode.swift in Sources */,
 				14D6251820BFE608000414F0 /* ViewController.swift in Sources */,
-				14D6252820BFE621000414F0 /* Network.swift in Sources */,
-				1443065B20C110F500A922AD /* NetworkError.swift in Sources */,
+				14D6252820BFE621000414F0 /* Network-internal.swift in Sources */,
+				1443065B20C110F500A922AD /* Network-Error.swift in Sources */,
 				1443065D20C1124E00A922AD /* Network-ResponseBody.swift in Sources */,
-				14D6252A20BFF236000414F0 /* UserAccount.swift in Sources */,
+				1484AE8C2186DBF300F493CE /* TestModel.swift in Sources */,
 				14D6251620BFE608000414F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

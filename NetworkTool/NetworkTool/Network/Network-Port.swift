@@ -10,13 +10,9 @@ import Foundation
 
 extension Network {
     enum Port: String {
-        static let baseUrl = "http://116.196.113.170:9080"
-        
-        case sendSecurityCode = "/user/sendSecurityCode"
-        case login = "/user/login"
-        case modify = "/user/modify"
-        
-        case message = "/message"
+        static let baseUrl = "http://www.mocky.io"
+
+        case testGet = "/v2/5bd6ab833500004900fd7c63"
     }
 }
 
